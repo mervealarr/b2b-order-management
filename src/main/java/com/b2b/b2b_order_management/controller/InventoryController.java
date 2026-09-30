@@ -14,6 +14,7 @@ import com.b2b.b2b_order_management.dto.InventoryAddRequest;
 import com.b2b.b2b_order_management.dto.InventoryResponse;
 import com.b2b.b2b_order_management.service.InventoryService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,12 +25,12 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @PostMapping("/add")
-    public ResponseEntity<InventoryResponse> addStock(@RequestBody InventoryAddRequest request) {
+    public ResponseEntity<InventoryResponse> addStock(@Valid @RequestBody InventoryAddRequest request) {
         return ResponseEntity.ok(inventoryService.addStock(request));
     }
 
     @PostMapping("/remove")
-    public ResponseEntity<InventoryResponse> removeStock(@RequestBody InventoryAddRequest request) {
+    public ResponseEntity<InventoryResponse> removeStock(@Valid @RequestBody InventoryAddRequest request) {
         return ResponseEntity.ok(inventoryService.removeStock(request));
     }
 

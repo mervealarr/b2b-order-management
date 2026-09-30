@@ -16,6 +16,7 @@ import com.b2b.b2b_order_management.dto.OrderCreateRequest;
 import com.b2b.b2b_order_management.dto.OrderResponse;
 import com.b2b.b2b_order_management.service.OrderService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,7 +27,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderCreateRequest request) {
+    public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody OrderCreateRequest request) {
         OrderResponse response = orderService.createOrder(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -54,5 +55,10 @@ public class OrderController {
     @PutMapping("/{id}/cancel")
     public ResponseEntity<OrderResponse> cancelOrder(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.cancelOrder(id));
+    }
+
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<OrderResponse> completeOrder(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.completeOrder(id));
     }
 }
